@@ -47,7 +47,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
-        user.setPassword(bCrypt().encode(user.getPassword()));
+        if (!user.getPassword().equals(getById(user.getId()).getPassword())) {
+            user.setPassword(bCrypt().encode(user.getPassword()));
+        }
         userRepository.save(user);
     }
 
@@ -62,6 +64,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(userName);
         if (user == null) {
             throw new NotFoundException(userName);
+        }
+        return user;
+    }
+
+    @Override
+    public User getByEmail(String email) throws NotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new NotFoundException(email);
         }
         return user;
     }

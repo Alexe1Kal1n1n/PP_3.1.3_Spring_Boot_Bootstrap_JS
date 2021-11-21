@@ -1,6 +1,8 @@
 package com.example.spring_boot.controllers;
 
+import com.example.spring_boot.model.Role;
 import javassist.NotFoundException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -24,18 +26,13 @@ public class AdminController {
     }
 
     @GetMapping
-    public String showAllUser(Model model) {
+    public String showAllUser(Model model, @AuthenticationPrincipal User user) {
+        List<Role> allRole = roleService.getListRole();
         List<User> allUsers = userService.getListUsers();
+        model.addAttribute("allRoles", allRole);
         model.addAttribute("allUs", allUsers);
-        return "admin-page";
-    }
-
-    @GetMapping("/new")
-    public String addNewUser(Model model) {
-        User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("role", roleService.getListRole());
-        return "user-info";
+        return "admin-page";
     }
 
     @PostMapping("/new")
@@ -45,14 +42,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable("id") int id, ModelMap model) {
-        model.addAttribute("user", userService.getById(id));
-        model.addAttribute("role", roleService.getListRole());
-        return "edit-user";
-    }
-
-    @PutMapping(value = "/edit/{id}")
+    @PostMapping(value = "/edit/{id}")
     public String editUser(@ModelAttribute User user, @RequestParam("rolles") String[] role) throws NotFoundException{
         user.setRoles(roleService.getRoleSet(role));
         userService.update(user);

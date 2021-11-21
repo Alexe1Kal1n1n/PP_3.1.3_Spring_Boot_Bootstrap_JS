@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.Set;
 
@@ -21,13 +22,15 @@ public class User implements UserDetails {
     private String username;
 
     @Column(name = "password")
+    @NotEmpty(message = "Password cannot be empty")
+    @Size(min = 4, message = "Password should be greater then 4 symbols")
     private String password;
 
-    @Column(name = "name")
-    private String firstName;
+    @Column(name = "last_name")
+    private String last_name;
 
-    @Column(name = "lastName")
-    private String lastName;
+    @Column(name = "age")
+    private byte age;
 
     @Column(name = "email")
     private String email;
@@ -42,30 +45,30 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(int id, String username, String password, String firstName, String lastName, String email, Set<Role> roles) {
+    public User(int id, String username, String password, byte age, String last_name, String email, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.age = age;
+        this.last_name = last_name;
         this.email = email;
         this.roles = roles;
     }
 
-    public User(String username, String password, String firstName, String lastName, String email, Set<Role> roles) {
+    public User(String username, String password, byte age, String last_name, String email, Set<Role> roles) {
         this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.age = age;
+        this.last_name = last_name;
         this.email = email;
         this.roles = roles;
     }
 
-    public User(String username, String password, String firstName, String lastName, String email) {
+    public User(String username, String password, byte age, String last_name, String email) {
         this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.age = age;
+        this.last_name = last_name;
         this.email = email;
     }
 
@@ -128,20 +131,20 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public byte getAge() {
+        return age;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setAge(byte age) {
+        this.age = age;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String lastName) {
+        this.last_name = lastName;
     }
 
     public String getEmail() {

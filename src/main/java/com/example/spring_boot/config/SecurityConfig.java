@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyRole("ADMIN")
                 .and()
                 .formLogin() // Spring сам подставит свою логин форму
+                .loginPage("/login")  //указываем свою форму
+                .usernameParameter("email")
                 .successHandler(successUserHandler) // подключаем наш SuccessHandler для перенаправления по ролям
                 // Handler - обработчик успешной аутентификации
                 //.failureHandler(authenticationFailureHandler) //указываем логику обработки при неудачном логине. На будущее

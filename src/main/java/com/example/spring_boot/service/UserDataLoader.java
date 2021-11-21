@@ -35,11 +35,11 @@ public class UserDataLoader {
 //                "Zaur", "Tregulov","tregulov@ya.ru");
 
         User user1 = new User( "alex", "alex",
-                "Alex", "Kalinin","alex@mail.ru");
+                (byte) 23, "Kalinin","alex@mail.ru");
         User user2 = new User( "kim", "kim",
-                "Kim", "ChenIn","kim5@chen.com");
+                (byte) 45, "ChenIn","kim5@chen.com");
         User user3 = new User( "zaur", "zaur",
-                "Zaur", "Tregulov","tregulov@ya.ru");
+                (byte) 33, "Tregulov","tregulov@ya.ru");
 
         Set<Role> roles1 = new HashSet<>();
         roles1.add(role1);
