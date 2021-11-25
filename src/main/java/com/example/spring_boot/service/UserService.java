@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> getListUsers();
+    List<User> getAllUsers();
 
     void saveUser(User user);
 
-    User getById(int id);
+    User getById(long id);
 
     void update(User user);
 
-    void delete(int id);
+    void delete(User user);
 
     User getByName(String userName) throws NotFoundException;
 

@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getListUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -36,13 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(int id) {
-        User user = null;
-        Optional<User> optional = userRepository.findById(id);
-        if (optional.isPresent()) {
-            user = optional.get();
-        }
-        return user;
+    public User getById(long id) {
+        return userRepository.getById(id);
     }
 
     @Override
@@ -54,9 +49,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int id) {
-        Optional<User> optional = userRepository.findById(id);
-        optional.ifPresent(userRepository::delete);
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 
     @Override

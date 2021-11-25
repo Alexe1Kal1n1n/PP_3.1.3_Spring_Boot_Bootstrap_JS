@@ -12,7 +12,7 @@ import com.example.spring_boot.model.User;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserDetailsServiceImpl(UserService userService) {
